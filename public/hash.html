@@ -1,0 +1,31 @@
+<!--
+ * @Author: dfh
+ * @Date: 2020-10-26 20:57:03
+ * @LastEditors: dfh
+ * @LastEditTime: 2020-10-26 21:06:05
+ * @Modified By: dfh
+ * @FilePath: /react-route-study/public/hash.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="#/a">#/a</a>
+    <a href="#/b">#/b</a>
+    <div id='root' style="border:3px solid red;height:100px"></div>
+    <script>
+        const container=document.getElementById('root')
+        window.addEventListener('hashchange', (event) => {
+            console.log(event)
+            container.innerHTML=window.location.hash.slice(1)
+        })
+    </script>
+</body>
+
+</html>

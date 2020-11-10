@@ -1,0 +1,48 @@
+<!--
+ * @Author: dfh
+ * @Date: 2020-10-26 21:06:32
+ * @LastEditors: dfh
+ * @LastEditTime: 2020-10-26 21:20:53
+ * @Modified By: dfh
+ * @FilePath: /react-route-study/public/history.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root" style="border:3px solid red;height:100px"></div>
+    <button onclick="push('/a')">/a</button>
+    <button onclick="push('/b')">/b</button>
+    <button onclick="push('/c')">/c</button>
+    <script>
+        const container = document.getElementById('root')
+        window.onpopstate = function (event) {
+            console.log(event)
+            container.innerHTML = event.state.name
+        }
+
+        //原生中没有onpushstate事件，自己实现一个
+        window.onpushState = function (data, title, url) {
+            container.innerHTML = data.name || url
+        }
+        const oldPushState = window.history.pushState
+
+        //重新原生的pushState方法
+        window.history.pushState = function (data, title, url) {
+            window.onpushState(data, title, url)
+            oldPushState.call(window.history, data, title, url)
+        }
+        function push(to) {
+            //pushState三个参数，第一个data:新状态对象,第二个：title已废弃，第三个：url新路径
+            window.history.pushState({ name: to }, '新路径', to)
+        }
+    </script>
+</body>
+
+</html>
