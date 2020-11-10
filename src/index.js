@@ -2,7 +2,7 @@
  * @Author: dfh
  * @Date: 2020-10-20 08:23:00
  * @LastEditors: dfh
- * @LastEditTime: 2020-11-10 09:17:19
+ * @LastEditTime: 2020-11-10 13:31:17
  * @Modified By: dfh
  * @FilePath: /react-route-study/src/index.js
  */
@@ -11,7 +11,7 @@ import ReactDOM from 'react-dom'
 import Home from './page/home'
 import User from './page/user'
 import Profile from './page/profile'
-import { HashRouter as Router, Route } from './react-router-dom'
+import { BrowerRouter as Router, Route } from './react-router-dom'
 import { Layout, Menu } from 'antd';
 import Login from './page/login'
 import Protected from './page/Protected'
@@ -25,7 +25,7 @@ ReactDOM.render(
         <Layout>
             <Header className="header">
                 <NavHeader/>
-                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
                     <Menu.Item key="1"><MenuLink to='/' exact>首页</MenuLink></Menu.Item>
                     <Menu.Item key="2"><MenuLink to='/user'>客户管理</MenuLink></Menu.Item>
                     <Menu.Item key="3"><MenuLink to='/profile'>个人中心</MenuLink></Menu.Item>

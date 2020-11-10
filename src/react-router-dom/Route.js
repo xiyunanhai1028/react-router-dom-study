@@ -2,7 +2,7 @@
  * @Author: dfh
  * @Date: 2020-10-26 21:53:16
  * @LastEditors: dfh
- * @LastEditTime: 2020-11-09 09:01:17
+ * @LastEditTime: 2020-11-10 13:35:23
  * @Modified By: dfh
  * @FilePath: /react-route-study/src/react-router-dom/Route.js
  */
@@ -51,6 +51,5 @@ export default class Router extends Component {
                 return null
             }
         }
-        return null
     }
 }

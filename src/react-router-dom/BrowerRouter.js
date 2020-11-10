@@ -2,31 +2,50 @@
  * @Author: dfh
  * @Date: 2020-10-26 21:49:34
  * @LastEditors: dfh
- * @LastEditTime: 2020-11-10 09:22:29
+ * @LastEditTime: 2020-11-10 11:10:26
  * @Modified By: dfh
  * @FilePath: /react-route-study/src/react-router-dom/BrowerRouter.js
  */
 import React, { Component } from 'react'
 import Context from './Context'
+const oldPushState = window.history.pushState
 export default class HashRouter extends Component {
     state = {
         location: {
-            pathname: window.location.hash.slice(1),
+            pathname: window.location.pathname||'/',
             state: null
         }
     }
 
     componentDidMount() {
-        window.location.hash = window.location.hash || '/'
-        window.addEventListener('hashchange', () => {
+        window.onpopstate = (event) => {
             this.setState({
                 location: {
                     ...this.state.location,
-                    pathname: window.location.hash.slice(1),
-                    state: this.locationState
+                    pathname: window.location.pathname,
+                    state: event.state
                 }
             })
-        })
+        }
+
+        //重新pushState
+        window.history.pushState = (state, title, pathname) => {
+            //调用老的pushState
+            oldPushState.call(window.history, state, title, pathname)
+            //调用自己写的onpushstate
+            window.onpushstate.call(this, state, pathname)
+        }
+
+        //自己写的pushState方法
+        window.onpushstate = (state, pathname) => {
+            this.setState({
+                location: {
+                    ...this.state.location,
+                    pathname,
+                    state
+                }
+            })
+        }
     }
 
     render() {
@@ -37,12 +56,10 @@ export default class HashRouter extends Component {
                 push: (to) => {
                     if (typeof to === 'object') {
                         const { path, state } = to
-                        this.locationState = state
-                        window.location.hash = path
-
+                        //状态，title,路径
+                        window.history.pushState(state, '', path)
                     } else {
-                        this.locationState = null
-                        window.location.hash = to
+                        window.history.pushState(null, '', to)
                     }
                 }
             }
